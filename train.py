@@ -67,7 +67,7 @@ def main_worker(local_rank, ngpus_per_node, opt):
     classifier = DistributedDataParallel(classifier, device_ids = [opt.local_rank])
 
     if opt.rank == 0:
-        wandb.init(project=opt.prj_name, name=opt.exp, entity="yoojlee", config=vars(opt))
+        wandb.init(project=opt.prj_name, name=opt.exp_name, entity="yoojlee", config=vars(opt))
         if opt.track_grad:
             wandb.watch(model, log='all', log_freq=opt.log_interval)
    
@@ -131,7 +131,7 @@ def main_worker(local_rank, ngpus_per_node, opt):
 
         optimizer.zero_grad()
 
-        _ = train(train_loader, model, classifier, criterion, criterion_c, optimizer, scheduler, epoch, opt)
+        #_ = train(train_loader, model, classifier, criterion, criterion_c, optimizer, scheduler, epoch, opt)
     
         dist.barrier()
 

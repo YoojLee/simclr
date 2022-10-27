@@ -86,7 +86,7 @@ def parse_opt():
     # misc
     parser.add_argument("--wandb", action="store_true", help="whether to use wandb logging.")
     parser.add_argument("--prj_name", type=str, default="simclr", help="wandb project name.")
-    parser.add_argument("--exp", type=str, default="exp1", help="a name of wandb run.")
+    parser.add_argument("--exp_name", type=str, default="exp1", help="a name of wandb run.")
     parser.add_argument("--track_grad", action="store_true", help="whether to track gradients and weights.")
     parser.add_argument("--log_interval", type=int, default=25)
     parser.add_argument("--seed", type=int, default=0, help="a random seed for reproducibility.")
