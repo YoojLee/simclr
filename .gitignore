@@ -1,7 +1,7 @@
 /wandb
 /__pycache__
 /weights
+normalization.py
 
 *.pyc
 *.sh
-.gitignore  `
