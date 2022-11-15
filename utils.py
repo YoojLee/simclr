@@ -4,8 +4,6 @@ import os
 import random
 import torch
 
-
-
 def fix_seed(random_seed):
     """
     fix seed to control any randomness from a code 
@@ -27,7 +25,7 @@ def save_checkpoint(checkpoint, saved_dir, file_name):
     torch.save(checkpoint, output_path)
 
 
-def load_checkpoint(checkpoint_path, model, optimizer, scheduler, rank=-1):
+def load_checkpoint(checkpoint_path, model, optimizer, optimizer_c, scheduler, rank=-1):
     # load model if resume_from is set
     
     if rank != -1: # distributed
@@ -36,16 +34,19 @@ def load_checkpoint(checkpoint_path, model, optimizer, scheduler, rank=-1):
     else:
         checkpoint = torch.load(checkpoint_path)    
         
-    model.load_state_dict(checkpoint['model'])
+    model.module.load_state_dict(checkpoint['model'])
     start_epoch = checkpoint['epoch']
 
     if optimizer is not None:
-        optimizer.load_state_dict(checkpoint['optimizer'])
+        optimizer.load_state_dict(checkpoint['optimizer_repr'])
+    
+    if optimizer_c is not None:
+        optimizer_c.load_state_dict(checkpoint['optimizer_cls'])
     
     if scheduler is not None:
         scheduler.load_state_dict(checkpoint['scheduler'])
 
-    return model, optimizer, scheduler, start_epoch
+    return model, optimizer, optimizer_c, scheduler, start_epoch
 
 # TO-DO: option parse하는 부분 구현
 
