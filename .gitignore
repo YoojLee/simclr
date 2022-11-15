@@ -1,0 +1,7 @@
+/wandb
+/__pycache__
+/weights
+
+*.pyc
+*.sh
+.gitignore  `
