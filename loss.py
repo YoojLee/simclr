@@ -14,13 +14,9 @@ class NTXentLoss(nn.Module):
         """
         - Args
             sim: a similarity matrix (2N X 2N)
+            y: labels
         """
-        # masking a diagonal of a similarity matrix.
-        mask = torch.ones_like(sim)
-        mask.fill_diagonal_(LARGE_NUMBER) # large number 채우기
-
-        # apply a mask to a similarity matrix.
-        sim *= mask
+        sim.fill_diagonal_(LARGE_NUMBER)
 
         loss = self.ce(sim/self.temp, y)
 
